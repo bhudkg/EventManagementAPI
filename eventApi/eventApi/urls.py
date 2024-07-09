@@ -20,9 +20,9 @@ from api.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', event_list, name="event_list"),
-    path('api/post/', event_post, name="event_post"),
-    path('api/update/<int:pk>', event_update, name="event_update"),
-    path('api/delete/<int:pk>', event_delete, name="event_delete"),
+    path('api/', EventView.as_view(), name='event_view'),
+    path('api/post/', EventView.as_view(), name="event_post"),
+    path('api/update/<int:pk>', EventView.as_view(), name="event_update"),
+    path('api/delete/<int:pk>', EventView.as_view(), name="event_delete"),
 
 ]
