@@ -18,6 +18,10 @@ from django.contrib import admin
 from django.urls import path
 from api.views import *
 from rest_framework.authtoken.views import obtain_auth_token
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -27,6 +31,12 @@ urlpatterns = [
     path('api/delete/<int:pk>', EventView.as_view(), name="event_delete"),
     path('api/login', obtain_auth_token, name="login"),
     path('api/logout', logout, name="logout"),
+   
 
-
+    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+ 
 ]
+
+
+
