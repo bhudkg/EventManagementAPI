@@ -6,6 +6,8 @@ from .models import Event
 from rest_framework.decorators import api_view, APIView
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.permissions import IsAuthenticated
+from rest_framework import status
 
 
 # @api_view(['GET'])
@@ -14,7 +16,14 @@ from rest_framework import status
 #     serializer = EventSerializer(query, many=True)
 #     return Response(serializer.data)
 
+@api_view(['POST'])
+def logout(request):
+    if request.method == "POST":
+        request.user.auth_token.delete()
+        return Response(status=status.HTTP_202_ACCEPTED)
+
 class EventView(APIView):
+    permission_classes = [IsAuthenticated]
     
     def get(self, request):
         query = Event.objects.all()
